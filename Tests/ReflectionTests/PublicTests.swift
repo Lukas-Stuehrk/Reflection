@@ -54,6 +54,12 @@ func == (lhs: ReferencePerson, rhs: ReferencePerson) -> Bool {
     return lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.age == rhs.age
 }
 
+class InheritedFromNSObject: NSObject {
+    var stringProperty: String = "Hello!"
+}
+
+
+
 public class PublicTests : XCTestCase {
     
     func testConstructType() throws {
@@ -232,6 +238,16 @@ public class PublicTests : XCTestCase {
         } catch {
             XCTFail()
         }
+    }
+
+    func testInheritedClasses() throws {
+        let instance = InheritedFromNSObject()
+        let allProperties = try properties(instance)
+
+        guard let property = allProperties.first else {
+            return XCTFail("It should have a property")
+        }
+        XCTAssertEqual("stringProperty", property.key)
     }
     
 }
